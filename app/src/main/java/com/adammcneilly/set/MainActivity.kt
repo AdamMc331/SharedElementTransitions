@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -13,6 +15,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.adammcneilly.set.theme.SETTheme
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,25 +28,33 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     val pokemonList = getTestData()
 
-                    NavHost(
-                        startDestination = "home",
-                        navController = navController,
-                    ) {
-                        composable("home") {
-                            PokemonList(
-                                pokemonList = pokemonList,
-                                onClick = { pokemon ->
-                                    navController.navigate("detail/${pokemon.name}")
-                                },
-                            )
-                        }
-
-                        composable("detail/{pokemonName}") {
-                            val pokemon = pokemonList.first { pok ->
-                                pok.name == it.arguments?.getString("pokemonName")
+                    SharedTransitionLayout {
+                        NavHost(
+                            startDestination = "home",
+                            navController = navController,
+                        ) {
+                            composable("home") {
+                                PokemonList(
+                                    pokemonList = pokemonList,
+                                    sharedTransitionScope = this@SharedTransitionLayout,
+                                    animatedVisibilityScope = this@composable,
+                                    onClick = { pokemon ->
+                                        navController.navigate("detail/${pokemon.name}")
+                                    },
+                                )
                             }
 
-                            PokemonDetail(pokemon)
+                            composable("detail/{pokemonName}") {
+                                val pokemon = pokemonList.first { pok ->
+                                    pok.name == it.arguments?.getString("pokemonName")
+                                }
+
+                                PokemonDetail(
+                                    pokemon = pokemon,
+                                    sharedTransitionScope = this@SharedTransitionLayout,
+                                    animatedVisibilityScope = this@composable,
+                                )
+                            }
                         }
                     }
                 }
