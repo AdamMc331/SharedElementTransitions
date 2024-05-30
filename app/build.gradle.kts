@@ -13,7 +13,7 @@ android {
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "template.app.id"
+        applicationId = "com.adammcneilly.set"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.compileSdk.get().toInt()
         versionCode = 1
@@ -51,7 +51,7 @@ android {
         }
     }
 
-    namespace = "template"
+    namespace = "com.adammcneilly.set"
 }
 
 dependencies {

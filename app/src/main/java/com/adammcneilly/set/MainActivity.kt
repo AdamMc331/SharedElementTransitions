@@ -1,4 +1,4 @@
-package template
+package com.adammcneilly.set
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -9,7 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import template.theme.TemplateTheme
+import com.adammcneilly.set.theme.SETTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ConfigureEdgeToEdgeWindow()
 
-            TemplateTheme {
+            SETTheme {
                 Surface(
                     color = MaterialTheme.colorScheme.background,
                 ) {
