@@ -12,8 +12,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import coil.request.ImageRequest
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
@@ -42,7 +44,12 @@ fun PokemonListItem(
             },
             leadingContent = {
                 AsyncImage(
-                    model = pokemon.imageUrl,
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(pokemon.imageUrl)
+                        .crossfade(true)
+                        .placeholderMemoryCacheKey("${pokemon.name}-image") //  same key as shared element key
+                        .memoryCacheKey("${pokemon.name}-image") // same key as shared element key
+                        .build(),
                     contentDescription = "${pokemon.name} image",
                     modifier = Modifier
                         .clip(CircleShape)
