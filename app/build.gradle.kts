@@ -62,11 +62,13 @@ dependencies {
     kspAndroidTest(libs.hilt.android.compiler)
 
     implementation(platform(libs.compose.bom))
+    implementation("io.coil-kt:coil-compose:2.6.0")
     implementation(libs.android.material)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.room.runtime)
     implementation(libs.compose.material)
     implementation(libs.compose.ui)

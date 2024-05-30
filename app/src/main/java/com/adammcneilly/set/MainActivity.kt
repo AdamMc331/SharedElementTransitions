@@ -4,11 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.adammcneilly.set.theme.SETTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,10 +21,31 @@ class MainActivity : ComponentActivity() {
             ConfigureEdgeToEdgeWindow()
 
             SETTheme {
-                Surface(
-                    color = MaterialTheme.colorScheme.background,
-                ) {
-                    Greeting("Android")
+                Surface {
+                    val navController = rememberNavController()
+                    val pokemonList = getTestData()
+
+                    NavHost(
+                        startDestination = "home",
+                        navController = navController,
+                    ) {
+                        composable("home") {
+                            PokemonList(
+                                pokemonList = pokemonList,
+                                onClick = { pokemon ->
+                                    navController.navigate("detail/${pokemon.name}")
+                                },
+                            )
+                        }
+
+                        composable("detail/{pokemonName}") {
+                            val pokemon = pokemonList.first { pok ->
+                                pok.name == it.arguments?.getString("pokemonName")
+                            }
+
+                            PokemonDetail(pokemon)
+                        }
+                    }
                 }
             }
         }
