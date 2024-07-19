@@ -63,7 +63,7 @@ dependencies {
 
     implementation(platform(libs.compose.bom))
     implementation("androidx.compose.animation:animation:1.7.0-beta01")
-    implementation("io.coil-kt:coil-compose:2.6.0")
+    implementation("io.coil-kt:coil-compose:2.7.0")
     implementation(libs.android.material)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
