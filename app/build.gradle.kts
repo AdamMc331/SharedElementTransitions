@@ -62,7 +62,7 @@ dependencies {
     kspAndroidTest(libs.hilt.android.compiler)
 
     implementation(platform(libs.compose.bom))
-    implementation("androidx.compose.animation:animation:1.7.0-beta01")
+    implementation("androidx.compose.animation:animation:1.7.6")
     implementation("io.coil-kt:coil-compose:2.6.0")
     implementation(libs.android.material)
     implementation(libs.androidx.activity.compose)
